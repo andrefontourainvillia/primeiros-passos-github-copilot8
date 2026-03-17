@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const email = document.getElementById("email").value;
     const activity = document.getElementById("activity").value;
+    const submitButton = signupForm.querySelector("button[type='submit']");
+
+    // Disable button to prevent double submission
+    submitButton.disabled = true;
 
     try {
       const response = await fetch(
@@ -73,11 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         messageDiv.classList.add("hidden");
       }, 5000);
+
+      // Enable button after submission completes
+      if (response.ok) {
+        submitButton.disabled = false;
+      } else {
+        submitButton.disabled = false;
+      }
     } catch (error) {
       messageDiv.textContent = "Falha na inscrição. Por favor, tente novamente.";
       messageDiv.className = "error";
       messageDiv.classList.remove("hidden");
       console.error("Erro na inscrição:", error);
+    } finally {
+      // Re-enable button after submission attempt
+      submitButton.disabled = false;
     }
   });
 
