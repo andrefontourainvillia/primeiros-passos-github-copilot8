@@ -38,6 +38,42 @@ activities = {
       "schedule": "Segundas, quartas e sextas, 14h - 15h",
       "max_participants": 30,
       "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+   },
+   "Futebol": {
+      "description": "Treinamentos e competições de futebol",
+      "schedule": "Terças e quintas, 16h30 - 18h",
+      "max_participants": 25,
+      "participants": ["lucas@mergington.edu"]
+   },
+   "Voleibol": {
+      "description": "Prática de voleibol com técnicas avançadas",
+      "schedule": "Segundas e quartas, 15h30 - 17h",
+      "max_participants": 20,
+      "participants": ["ana@mergington.edu", "beatriz@mergington.edu"]
+   },
+   "Teatro": {
+      "description": "Aulas de atuação, dramaturgia e produção teatral",
+      "schedule": "Quartas e sextas, 15h - 17h",
+      "max_participants": 15,
+      "participants": ["carolina@mergington.edu"]
+   },
+   "Artes Visuais": {
+      "description": "Pintura, desenho e técnicas de artes plásticas",
+      "schedule": "Terças, 15h30 - 17h30",
+      "max_participants": 18,
+      "participants": ["diego@mergington.edu", "fernanda@mergington.edu"]
+   },
+   "Clube de Debate": {
+      "description": "Desenvolva habilidades de argumentação e oratória",
+      "schedule": "Quintas, 16h - 17h30",
+      "max_participants": 16,
+      "participants": ["gabriel@mergington.edu"]
+   },
+   "Clube de Ciências": {
+      "description": "Experimentos práticos e investigações científicas",
+      "schedule": "Quartas, 15h30 - 17h",
+      "max_participants": 22,
+      "participants": ["helena@mergington.edu", "igor@mergington.edu"]
    }
 }
 
@@ -61,6 +97,10 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Get the specificy activity
     activity = activities[activity_name]
+
+   # Validar se o estudante já está inscrito
+    if email in activity["participants"]:
+      raise HTTPException(status_code=400, detail="Estudante já inscrito nesta atividade")
 
     # Add student
     activity["participants"].append(email)
